@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/META-INF/templates/customerTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+        <title>Edit Kunde</title>
+    </head>
+    <body>
+    <ui:define name="content">
+        <h2><h:outputText value="Kunde"/></h2>
+        <h:messages showDetail="true" showSummary="false"/>
+
+
+        <f:event type="javax.faces.event.PreRenderViewEvent" listener="#{kundeController.init()}"/>
+
+        <h:form id="form">
+            <h:panelGrid id="gridDaten" columns="2">
+
+                <h:outputLabel value="Name:" for="name"/>
+                <h:inputText id="name" value="#{kundeController.kunde.name}" required="true" converter="nameKonverter" validator="nameValidator"/>
+
+                <h:outputLabel value="Gruendungsdatum:" for="gruendungsdatum"/>
+                <h:inputText id="gruendungsdatum" value="#{kundeController.kunde.gruendungsdatum}" required="true"  >
+                    <f:convertDateTime pattern="dd.MM.yyyy" />
+                </h:inputText>
+
+                <h:outputLabel value="Telefon:" for="telefon"/>
+                <h:inputText id="telefon" value="#{kundeController.kunde.telefon}"/>
+
+                <h:outputLabel value="Geschlecht"/>
+                <h:selectOneMenu value="#{kundeController.kunde.geschlecht}">
+                    <f:selectItem itemValue="#{null}" itemLabel="--select--" />
+                    <f:selectItem itemValue="maennlich" itemLabel="männlich" />
+                    <f:selectItem itemValue="weiblich" itemLabel="weiblich" />
+                    <f:selectItem itemValue="firma" itemLabel="firma" />
+                </h:selectOneMenu>
+
+            </h:panelGrid>
+
+            <h2><h:outputText value="Staendige Adresse"/></h2>
+            <h:panelGrid id="staendigeAdresse" columns="2">
+                <h:outputLabel value="Ort:" for="ort1"/>
+                <h:inputText id="ort1" value="#{kundeController.kunde.staendigeAdresse.ort}" required="true"/>
+
+                <h:outputLabel value="Haus Nr.:" for="hausNr1"/>
+                <h:inputText id="hausNr1" value="#{kundeController.kunde.staendigeAdresse.hausNr}" required="true"/>
+
+                <h:outputLabel value="Strasse:" for="strasse1"/>
+                <h:inputText id="strasse1" value="#{kundeController.kunde.staendigeAdresse.strasse}" required="true"/>
+
+                <h:outputLabel value="Wohnung Nr.:" for="wohnungNr1"/>
+                <h:inputText id="wohnungNr1" value="#{kundeController.kunde.staendigeAdresse.wohnungNr}"/>
+
+            </h:panelGrid>
+
+            <h2><h:outputText value="Postanschrift"/></h2>
+            <h:panelGrid id="postanschrift" columns="2">
+                <h:outputLabel value="Ort:" for="ort2"/>
+                <h:inputText id="ort2" value="#{kundeController.kunde.postAnschrift.ort}" required="true"/>
+
+                <h:outputLabel value="Haus Nr.:" for="hausNr2"/>
+                <h:inputText id="hausNr2" value="#{kundeController.kunde.postAnschrift.hausNr}" required="true"/>
+
+                <h:outputLabel value="Strasse:" for="strasse2"/>
+                <h:inputText id="strasse2" value="#{kundeController.kunde.postAnschrift.strasse}" required="true"/>
+
+                <h:outputLabel value="Wohnung Nr.:" for="wohnungNr2"/>
+                <h:inputText id="wohnungNr2" value="#{kundeController.kunde.postAnschrift.wohnungNr}"/>
+
+                <h:commandButton id="save" action="#{kundeController.updateKunde}" value="Save"/>
+                <h:commandButton id="cancel" value="Cancel" action="/kundeListe.xhtml" immediate="true"/>
+            </h:panelGrid>
+
+        </h:form>
+    </ui:define>
+    <!-- sidebar -->
+    <ui:define name="sidebar"/>
+    </body>
+</ui:composition>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+    <title>Left side bar</title>
+</head>
+<body>
+<ui:composition>
+    <ui:decorate template="/META-INF/templates/sideBox.xhtml">
+    </ui:decorate>
+    <ui:decorate template="/META-INF/templates/sideBox.xhtml">
+        <h:form id="sidebarForm">
+            <h:panelGrid columns="1">
+                <h:commandLink action="kundeListe" value="List alle Kunden"/>
+                <h:commandLink action="kundeFormular" value="Fuege einen neuen Kunden an">
+                    <f:setPropertyActionListener target="#{kundeController.operation}" value="add"/>
+                </h:commandLink>
+                <p></p>
+                <h:commandLink action="serviceDictListe" value="List alle ServiceDict"/>
+                <h:commandLink action="serviceDictFormular" value="Fuege ein neues ServiceDict an">
+                    <f:setPropertyActionListener target="#{serviceDictController.operation}" value="add"/>
+                </h:commandLink>
+            </h:panelGrid>
+        </h:form>
+    </ui:decorate>
+</ui:composition>
+</body>
+</html>

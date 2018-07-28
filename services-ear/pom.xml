@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.reuters</groupId>
+		<artifactId>services-main-pom</artifactId>
+		<version>1.0-SNAPSHOT</version>
+        <relativePath>../services-main-pom/pom.xml</relativePath>
+    </parent>
+
+    <groupId>de.reuters</groupId>
+    <artifactId>services-ear</artifactId>
+    <packaging>ear</packaging>
+    
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>services-ejb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>services-web</artifactId>
+            <version>${services.version}</version>
+            <type>war</type>
+        </dependency>
+    
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <modules>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>services-web</artifactId>
+                            <contextRoot>/services</contextRoot>
+                        </webModule>
+                    </modules>                    
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

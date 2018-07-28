@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/META-INF/templates/customerTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+        <title>Services von Kunden</title>
+    </head>
+
+    <body>
+    <ui:define name="content">
+
+        <f:event type="javax.faces.event.PreRenderViewEvent" listener="#{serviceController.init()}"/>
+
+        <h:form id="servicesForm">
+            <fieldset>
+                <table align="center" style="border: 0; border-bottom: 0; border-left: 0">
+                    <tr>
+                        <td><h:outputLabel for="kundeServicesList" value="Kunde Services"/></td>
+                        <td></td>
+                        <td><h:outputLabel for="servicesList" value="Alle Services"/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:selectManyListbox id="kundeServicesList"
+                                                 size="8"
+                                                 immediate="true"
+                                                 valueChangeListener="#{serviceController.kundeServicesSelected}"
+                                                 style="width:170px">
+                            <f:selectItems value="#{serviceController.kundeServices}"/>
+                        </h:selectManyListbox>
+                        </td>
+                        <td>
+                            <h:commandButton id="deselectButton" class="button" value="&#60;&#60;"/><br/>
+                            <h:commandButton id="selectButton" class="button" value="&#62;&#62;"/>
+                        </td>
+                        <td>
+                            <h:selectManyListbox id="servicesList"
+                                                 size="8"
+                                                 immediate="true"
+                                                 valueChangeListener="#{serviceController.servicesSelected}"
+                                                 style="width:170px">
+                            <f:selectItems value="#{serviceController.services}"/>
+                        </h:selectManyListbox></td>
+                    </tr>
+                </table>
+                <div class="entry">
+                    <div class="label">&#160;</div>
+                    <div class="input">
+                        <h:commandButton id="submitUpdate" action="#{serviceController.updateServices}" value="Save"/>
+                        <h:commandButton id="cancel" value="Cancel" action="#{serviceController.cancel}" immediate="true"/>
+                    </div>
+                </div>
+            </fieldset>
+        </h:form>
+    </ui:define>
+
+    <!-- sidebar -->
+    <ui:define name="sidebar"/>
+    </body>
+</ui:composition>

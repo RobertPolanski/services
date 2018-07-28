@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/META-INF/templates/customerTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+        <title>Zeigen der Liste von ServiceDict</title>
+    </head>
+
+    <body>
+    <ui:define name="content">
+
+        <div class="section">
+            <h:form>
+                <h:dataTable id="items" value="#{serviceDictController.serviceDictListDto}" var="serviceDictDto"
+                             styleClass="datatable">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Name"/>
+                        </f:facet>
+                        <h:commandLink action="serviceDictFormular" value="#{serviceDictDto.name}">
+                            <f:setPropertyActionListener target="#{serviceDictController.serviceDictId}" value="#{serviceDictDto.id}" />
+                            <f:setPropertyActionListener target="#{serviceDictController.operation}" value="edit" />
+                        </h:commandLink>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ServiceArt"/>
+                        </f:facet>
+                        <h:outputLabel value="#{serviceDictDto.serviceArt}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Operation"/>
+                        </f:facet>
+                        <h:commandLink action="#{serviceDictController.updateServiceDictDto}" value="Löschen">
+                            <f:setPropertyActionListener target="#{serviceDictController.serviceDictId}"
+                                                         value="#{serviceDictDto.id}"/>
+                            <f:setPropertyActionListener target="#{serviceDictController.operation}" value="delete"/>
+                        </h:commandLink>
+                    </h:column>
+
+                </h:dataTable>
+
+            </h:form>
+        </div>
+    </ui:define>
+
+    <!-- sidebar -->
+    <ui:define name="sidebar"/>
+    </body>
+</ui:composition>

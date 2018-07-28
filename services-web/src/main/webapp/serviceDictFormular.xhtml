@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/META-INF/templates/customerTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+        <title>Edit ServiceDict</title>
+    </head>
+    <body>
+    <ui:define name="content">
+        <h2><h:outputText value="Füge ein neues ServiceDict an"/></h2>
+        <h:messages showDetail="true" showSummary="false"/>
+
+
+        <f:event type="javax.faces.event.PreRenderViewEvent" listener="#{serviceDictController.init()}"/>
+
+        <h:form id="form">
+            <h:panelGrid id="gridDaten" columns="2">
+
+                <h:outputLabel value="Name:" for="name"/>
+                <h:inputText id="name" value="#{serviceDictController.serviceDictDto.name}" required="true" converter="nameKonverter" validator="nameValidator"/>
+
+                <h:outputLabel value="ServiceDictArt:"/>
+                <h:selectOneRadio value="#{serviceDictController.serviceDictDto.serviceArt}">
+                    <f:selectItems value="#{radioButtonEnum.serviceArt}" var="serArt" itemLabel="#{serArt.name}" itemValue="#{serArt}" />
+                </h:selectOneRadio>
+
+                <h:commandButton id="save" action="#{serviceDictController.updateServiceDictDto}" value="Save"/>
+                <h:commandButton id="cancel" value="Cancel" action="/serviceDictListe.xhtml" immediate="true"/>
+
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+    <!-- sidebar -->
+    <ui:define name="sidebar"/>
+    </body>
+</ui:composition>

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/META-INF/templates/customerTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+	<head>
+<title>Zeigen der Liste von Kunden</title>
+	</head>
+
+	<body>
+		<ui:define name="content">
+
+			<div class="section">
+				<h:form>
+
+					<h:panelGrid id="gridDaten" columns="6">
+						<h:outputLabel value="Name:" for="nameFilter" />
+						<h:inputText id="nameFilter" value="#{kundeController.kundeNameVomFilter}" />
+
+						<h:outputLabel value="Telefon:" for="telefonFilter" />
+						<h:inputText id="telefonFilter" value="#{kundeController.telefonVomFilter}" />
+
+						<h:outputLabel value="Geschlecht:" for="geschlechtVomFilter" />
+						<h:selectOneMenu id="geschlechtVomFilter" value="#{kundeController.geschlechtVomFilter}">
+							<f:selectItem itemValue="#{null}" itemLabel="--select--" />
+							<f:selectItems value="#{auswahlListeEnum.geschlechtArt}" var="geschlechtArt" itemLabel="#{geschlechtArt.geschlecht}" itemValue="#{geschlechtArt}" />
+						</h:selectOneMenu>
+
+						<h:commandButton id="search2" action="#{kundeController.searchFilter}" value="Search" />
+					</h:panelGrid>
+
+					<h:dataTable id="items" value="#{kundeController.kunden}" var="kundeDto" styleClass="datatable">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Name" />
+							</f:facet>
+							<h:commandLink action="kundeFormular" value="#{kundeDto.name}">
+								<f:setPropertyActionListener target="#{kundeController.kundeId}" value="#{kundeDto.id}" />
+								<f:setPropertyActionListener target="#{kundeController.operation}" value="edit" />
+							</h:commandLink>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Geschlecht" />
+							</f:facet>
+							<h:outputLabel value="#{kundeDto.geschlecht}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Gruendungsdatum" />
+							</f:facet>
+							<h:outputLabel value="#{kundeDto.gruendungsdatum}">
+								<f:convertDateTime pattern="dd.MM.yyyy" />
+							</h:outputLabel>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Telefon" />
+							</f:facet>
+							<h:outputLabel value="#{kundeDto.telefon}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Operation" />
+							</f:facet>
+							<h:commandLink action="servicesFormular" value="Services">
+								<f:setPropertyActionListener target="#{serviceController.kundeId}" value="#{kundeDto.id}" />
+							</h:commandLink>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Operation" />
+							</f:facet>
+							<h:commandLink action="#{kundeController.updateKunde}" value="Löschen">
+								<f:setPropertyActionListener target="#{kundeController.kundeId}" value="#{kundeDto.id}" />
+								<f:setPropertyActionListener target="#{kundeController.operation}" value="delete" />
+							</h:commandLink>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+
+			</div>
+		</ui:define>
+
+		<!-- sidebar -->
+		<ui:define name="sidebar" />
+	</body>
+</ui:composition>
