@@ -1,4 +1,2 @@
 # services
-cipka
-cipka
-dupeczka
+lösche
