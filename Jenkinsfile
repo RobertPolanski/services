@@ -14,11 +14,6 @@ pipeline {
 
       }
     }
-    stage('Reslut') {
-      steps {
-        
-        
-      }
-    }
+    
   }
 }
